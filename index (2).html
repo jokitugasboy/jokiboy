@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joki Tugas Boy - Jasa Tugas Kuliah & Sekolah Terpercaya</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//wa.me">
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical above-the-fold styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d4b44, #101815);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header - Critical styles */
+        header {
+            background: linear-gradient(135deg, #2d4b44, #101815);
+            color: #f5f5f5;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #d0d0d0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #f5f5f5;
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hero Section - Critical styles */
+        .hero {
+            background: linear-gradient(135deg, #2d4b44, #3c5c54, #101815);
+            color: #f5f5f5;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.06)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #d4af37, #f5d76e);
+            color: #21484b;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.7s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="data:text/css;base64,..." as="style" onload="this.onload=null;this.rel='stylesheet'">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i> JB
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#keunggulan">Keunggulan</a></li>
+                <li><a href="#testimoni">Testimoni</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>JOKI TUGAS BOY</h1>
+            <p>Solusi Terpercaya untuk Semua Kebutuhan Tugas Kuliah & Sekolah Anda</p>
+            <a href="https://wa.me/62895620771839" target="_blank" class="cta-button">
+                CHAT ADMIN
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="keunggulan">
+        <div class="container">
+            <h2>MENGAPA PILIH JOKI TUGAS BOY?</h2>
+            <div class="features-grid" id="featuresGrid">
+                <!-- Features will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="layanan">
+        <div class="container">
+            <h2>Layanan Kami</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimoni">
+        <div class="container">
+            <h2>Apa Kata Mereka?</h2>
+            <div class="testimonial-grid" id="testimonialGrid">
+                <!-- Testimonials will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="kontak">
+        <div class="container">
+            <h2>Siap Membantu Tugas Anda!</h2>
+            <p>Jangan biarkan tugas menumpuk! Hubungi kami sekarang dan dapatkan solusi terbaik.</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/62895620771839" class="contact-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+                <a href="https://www.instagram.com/jokitugasboy?igsh=MXhwM2d1bzE4cm9kNg==" class="contact-btn" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
+                <a href="mailto:stynlisboy25@gmail.com" class="contact-btn">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Joki Tugas Boy. All rights reserved. | Solusi Terpercaya untuk Semua Tugas Anda</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/62895620771839" class="whatsapp-float pulse" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Non-critical CSS -->
+    <style id="nonCriticalCSS">
+        /* Features Section */
+        .features {
+            padding: 120px 0 80px;
+            background: #e8e8e8;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 4rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            color: #1f4037;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @supports (-webkit-background-clip: text) {
+            .features h2 {
+                background: linear-gradient(45deg, #1f4037, #2d4b44);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f5f5f5;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #21484b;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            color: #21484b;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #21484b;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-item {
+            background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .service-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-item i {
+            font-size: 2rem;
+            color: #21484b;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .service-item h4 {
+            color: #21484b;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: #e8e8e8;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #21484b;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: #f5f5f5;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .testimonial.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #21484b;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #2d4b44, #3c5c54, #101815);
+            color: #f5f5f5;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, #d4af37, #f5d76e);
+            color: #21484b;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #0d1f21;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #21484b;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .features h2 {
+                font-size: 1.8rem;
+                margin-bottom: 3rem;
+                padding: 0 10px;
+                color: #1f4037 !important;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+
+    <script>
+        // Performance optimized JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after critical content loads
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 600);
+
+            // Lazy load content data
+            const featuresData = [
+                { icon: 'fas fa-clock', title: 'Pengerjaan Cepat', text: 'Kami mengerjakan tugas Anda dengan cepat tanpa mengurangi kualitas. Deadline ketat? Tidak masalah!' },
+                { icon: 'fas fa-medal', title: 'Kualitas Terjamin', text: 'Tim profesional kami memastikan setiap tugas dikerjakan dengan standar akademik tertinggi.' },
+                { icon: 'fas fa-shield-alt', title: '100% Aman & Privasi', text: 'Kerahasiaan dan keamanan data Anda adalah prioritas utama kami. Dijamin aman!' },
+                { icon: 'fas fa-money-bill-wave', title: 'Harga Terjangkau', text: 'Dapatkan layanan berkualitas premium dengan harga yang ramah di kantong mahasiswa.' },
+                { icon: 'fas fa-headset', title: 'Support 24/7', text: 'Tim customer service kami siap membantu Anda kapan saja, 24 jam sehari 7 hari seminggu.' },
+                { icon: 'fas fa-redo-alt', title: 'Revisi Gratis', text: 'Tidak puas dengan hasil? Kami memberikan revisi gratis hingga Anda benar-benar puas.' }
+            ];
+
+            const servicesData = [
+                { icon: 'fas fa-keyboard', title: 'Jasa Ketik Digital', text: 'Pengetikan dokumen digital dengan akurat dan rapi' },
+                { icon: 'fas fa-presentation', title: 'Pembuatan PowerPoint', text: 'Slide presentasi profesional dan menarik' },
+                { icon: 'fas fa-chart-line', title: 'Uji SPSS', text: 'Deskriptif, Korelasi, Uji T, ANOVA, Regresi, Chi Square' },
+                { icon: 'fas fa-globe', title: 'Pembuatan Website', text: 'Website profesional sesuai kebutuhan bisnis' },
+                { icon: 'fas fa-file-contract', title: 'Pembuatan Proposal', text: 'Proposal penelitian dan bisnis yang berkualitas' },
+                { icon: 'fas fa-calculator', title: 'Jurnal Akuntansi', text: 'Penyusunan jurnal akuntansi dan laporan keuangan' },
+                { icon: 'fas fa-file-alt', title: 'Makalah', text: 'Makalah akademik dengan referensi lengkap' },
+                { icon: 'fas fa-table', title: 'Tabulasi Data', text: 'Pengolahan dan tabulasi data penelitian' },
+                { icon: 'fas fa-bookmark', title: 'Resume Materi', text: 'Ringkasan materi kuliah yang mudah dipahami' },
+                { icon: 'fas fa-search', title: 'Laporan Penelitian', text: 'Laporan penelitian lengkap dengan metodologi' },
+                { icon: 'fas fa-newspaper', title: 'Buat Artikel Jurnal', text: 'Penulisan artikel jurnal sesuai standar publikasi' },
+                { icon: 'fas fa-book-open', title: 'Cari Artikel Jurnal', text: 'Pencarian artikel jurnal relevan untuk penelitian' },
+                { icon: 'fas fa-university', title: 'Cari Jurnal Nasional & Internasional', text: 'Pencarian jurnal nasional dan internasional terakreditasi' },
+                { icon: 'fas fa-sitemap', title: 'Pembuatan Mind Mapping', text: 'Mind map kreatif untuk visualisasi konsep' },
+                { icon: 'fas fa-shield-alt', title: 'Cek Tingkat Plagiasi', text: 'Pengecekan plagiasi dengan tools terpercaya' },
+                { icon: 'fas fa-pen-fancy', title: 'Jasa Tulis Tangan', text: 'Surat lamaran TNI, Polri dan dokumen lainnya' },
+                { icon: 'fas fa-palette', title: 'Desain CV, Poster & ID Card', text: 'Desain profesional untuk berbagai kebutuhan' },
+                { icon: 'fas fa-edit', title: 'Pembuatan Essay', text: 'Essay berkualitas dengan argumentasi kuat' },
+                { icon: 'fas fa-file-word', title: 'Tugas Paper', text: 'Paper akademik sesuai format dan standar' },
+                { icon: 'fas fa-book', title: 'Pembuatan Modul', text: 'Modul pembelajaran dan training' },
+                { icon: 'fas fa-sync-alt', title: 'Jasa Parafrase', text: 'Parafrase dokumen untuk menghindari plagiasi' },
+                { icon: 'fas fa-images', title: 'Editing Foto & Logo', text: 'Edit foto, pembuatan logo dan spanduk' },
+                { icon: 'fas fa-video', title: 'Editing Video', text: 'Edit video untuk presentasi dan promosi' },
+                { icon: 'fas fa-plus', title: 'Dan Lainnya', text: 'Konsultasi untuk jenis tugas lainnya' }
+            ];
+
+            const testimonialsData = [
+                { text: "Pelayanan sangat memuaskan! Tugas dikerjakan dengan cepat dan hasilnya berkualitas. Sangat recommended!", author: "- Sarah, Mahasiswa UNJA" },
+                { text: "Admin responsif dan profesional. Hasil tugas sesuai dengan yang diminta. Terima kasih Joki Tugas Boy!", author: "- Dimas, Mahasiswa UNJA" },
+                { text: "Harga terjangkau tapi kualitas tidak murahan. Puas banget dengan pelayanannya. Pasti langganan!", author: "- Rina, Mahasiswa UIN STS" }
+            ];
+
+            // Function to create elements efficiently
+            function createElement(tag, className, content) {
+                const element = document.createElement(tag);
+                if (className) element.className = className;
+                if (content) element.innerHTML = content;
+                return element;
+            }
+
+            // Load features lazily
+            function loadFeatures() {
+                const grid = document.getElementById('featuresGrid');
+                const fragment = document.createDocumentFragment();
+                
+                featuresData.forEach((feature, index) => {
+                    const card = createElement('div', 'feature-card', `
+                        <div class="feature-icon">
+                            <i class="${feature.icon}"></i>
+                        </div>
+                        <h3>${feature.title}</h3>
+                        <p>${feature.text}</p>
+                    `);
+                    card.style.transitionDelay = `${index * 0.1}s`;
+                    fragment.appendChild(card);
+                });
+                
+                grid.appendChild(fragment);
+            }
+
+            // Load services lazily
+            function loadServices() {
+                const grid = document.getElementById('servicesGrid');
+                const fragment = document.createDocumentFragment();
+                
+                servicesData.forEach((service, index) => {
+                    const item = createElement('div', 'service-item', `
+                        <i class="${service.icon}"></i>
+                        <h4>${service.title}</h4>
+                        <p>${service.text}</p>
+                    `);
+                    item.style.transitionDelay = `${index * 0.05}s`;
+                    fragment.appendChild(item);
+                });
+                
+                grid.appendChild(fragment);
+            }
+
+            // Load testimonials lazily
+            function loadTestimonials() {
+                const grid = document.getElementById('testimonialGrid');
+                const fragment = document.createDocumentFragment();
+                
+                testimonialsData.forEach((testimon
